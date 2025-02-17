@@ -9,7 +9,7 @@ import {
   RegisterResponse,
   User,
   ValidationError,
-} from "../../../types";
+} from "../../types";
 
 export const googleLogin = createAsyncThunk<
   User,

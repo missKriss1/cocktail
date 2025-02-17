@@ -7,7 +7,7 @@ import { logout } from "../../../features/users/userThunk.ts";
 import { unsetUser } from "../../../features/users/userSlice.ts";
 import { apiUrl } from "../../../globalConstants.ts";
 import zaglushkaAvatar from "/src/assets/zaglushkaAvatar.jpg";
-import { User } from "../../../../types";
+import { User } from "../../../types";
 
 interface Props {
   user: User;

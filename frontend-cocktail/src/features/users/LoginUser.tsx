@@ -9,7 +9,7 @@ import { selectLoginError } from "./userSlice.ts";
 import { NavLink, useNavigate } from "react-router-dom";
 import { googleLogin, login } from "./userThunk.ts";
 import { GoogleLogin } from "@react-oauth/google";
-import { RegisterMutation } from "../../../types";
+import { RegisterMutation } from "../../types";
 
 const LoginUser = () => {
   const dispatch = useAppDispatch();

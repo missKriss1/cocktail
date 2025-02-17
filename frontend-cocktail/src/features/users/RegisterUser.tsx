@@ -9,7 +9,7 @@ import { selectUserError } from "./userSlice.ts";
 import { NavLink, useNavigate } from "react-router-dom";
 import { register } from "./userThunk.ts";
 import FileInput from "../../components/FileInput.tsx";
-import { RegisterMutation } from "../../../types";
+import { RegisterMutation } from "../../types";
 
 const RegisterUser = () => {
   const dispatch = useAppDispatch();
