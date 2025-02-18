@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   cocktails: Cocktail;
+  cocktailPublished: (id: string) => void;
 }
 
 const CoctailItem: React.FC<Props> = ({ cocktails }) => {

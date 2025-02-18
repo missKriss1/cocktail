@@ -5,6 +5,7 @@ import Home from "./container/Home/Home.tsx";
 import RegisterUser from "./features/users/RegisterUser.tsx";
 import LoginUser from "./features/users/LoginUser.tsx";
 import OneCocktail from './container/Coctails/OneCocktail.tsx';
+import CocktailForm from './container/Coctails/CocktailForm.tsx';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
             <Route path="/register" element={<RegisterUser/>} />
             <Route path="/login" element={<LoginUser/>} />
             <Route path="/cocktails/:cocktailId" element={<OneCocktail />} />
+            <Route path="/add_new_cocktail" element={<CocktailForm/>} />
           </Routes>
         </Container>
       </main>

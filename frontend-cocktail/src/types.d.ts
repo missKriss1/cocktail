@@ -63,3 +63,10 @@ export interface CocktailDetails {
   ingredients: Ingredients[];
   published: boolean;
 }
+
+export interface CocktailMutation{
+  name: string;
+  image: File | null;
+  recipe: string;
+  ingredients: Ingredients[];
+}
