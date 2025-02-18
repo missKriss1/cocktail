@@ -1,13 +1,16 @@
 import { Container, CssBaseline } from "@mui/material";
 import AppToolBar from "./components/UI/AppToolBar/AppToolBar.tsx";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 import Home from "./container/Home/Home.tsx";
 import RegisterUser from "./features/users/RegisterUser.tsx";
 import LoginUser from "./features/users/LoginUser.tsx";
 import OneCocktail from './container/Coctails/OneCocktail.tsx';
 import CocktailForm from './container/Coctails/CocktailForm.tsx';
+import MyCocktails from './container/Coctails/MyCocktails.tsx';
 
 const App = () => {
+
+
   return (
     <>
       <CssBaseline />
@@ -22,6 +25,7 @@ const App = () => {
             <Route path="/login" element={<LoginUser/>} />
             <Route path="/cocktails/:cocktailId" element={<OneCocktail />} />
             <Route path="/add_new_cocktail" element={<CocktailForm/>} />
+            <Route path="/cocktails" element={<MyCocktails/>} />
           </Routes>
         </Container>
       </main>

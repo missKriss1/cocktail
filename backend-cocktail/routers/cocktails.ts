@@ -49,16 +49,24 @@ cocktailsRouter.post("/", auth, imagesUpload.single('image'), async (req, res, n
     }
 })
 
-cocktailsRouter.get("/", async (req, res, next) => {
+cocktailsRouter.get("/", auth, async (req, res, next) => {
+    let reqWithAuth = req as RequestWithUser;
+    const user = reqWithAuth.user
+
+    if (!user) {
+        res.status(400).send({error: 'User not found'});
+        return;
+    }
     try{
         const userCocktails = req.query.user;
         let cocktail
 
         if(userCocktails){
             cocktail = await Cocktail.find({user: userCocktails}).populate("user");
-        }else {
+        }else{
             cocktail = await Cocktail.find().populate("user");
         }
+
         res.send(cocktail)
     }catch (e){
         next(e);

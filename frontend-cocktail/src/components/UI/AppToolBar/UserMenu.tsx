@@ -1,7 +1,7 @@
 import { Button, Menu, MenuItem, Avatar } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 import { useAppDispatch } from "../../../app/hooks.ts";
 import { logout } from "../../../features/users/userThunk.ts";
 import { unsetUser } from "../../../features/users/userSlice.ts";
@@ -55,6 +55,14 @@ const UserMenu: React.FC<Props> = ({ user }) => {
               style={{textDecoration: "none", color: "inherit"}}
             >
               Add new cocktail
+            </NavLink>
+          </MenuItem>
+          <MenuItem onClick={hendelClose}>
+            <NavLink
+              to={`/cocktails?user=${user._id}`}
+              style={{textDecoration: "none", color: "inherit"}}
+            >
+              My cocktails
             </NavLink>
           </MenuItem>
         </div>

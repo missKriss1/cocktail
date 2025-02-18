@@ -10,9 +10,18 @@ const Coctails = () => {
   const dispatch = useAppDispatch();
   const cocktails = useAppSelector(cocktailsSelect);
 
+
   useEffect(() => {
-    dispatch(fetchCocktails());
+      dispatch(fetchCocktails());
   }, [dispatch]);
+
+  const publishCocktailClick = async () => {
+    try {
+      await dispatch(fetchCocktails());
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Box sx={{ padding: 2 }}>
@@ -24,7 +33,7 @@ const Coctails = () => {
         <Grid container spacing={2}>
           {cocktails.map((cocktail) => (
             <Grid size={{ xs: 6, md: 4 }} key={cocktail._id}>
-              <CoctailItem cocktails={cocktail} />
+              <CoctailItem cocktails={cocktail} cocktailPublished={publishCocktailClick} />
             </Grid>
           ))}
         </Grid>

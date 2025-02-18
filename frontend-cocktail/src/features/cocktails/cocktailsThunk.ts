@@ -4,10 +4,18 @@ import axiosApi from '../../axiosApi.ts';
 import { RootState } from '../../app/store.ts';
 import { isAxiosError } from 'axios';
 
-export const fetchCocktails = createAsyncThunk<Cocktail[], void>(
+export const fetchCocktails = createAsyncThunk<Cocktail[], void, { state: RootState; rejectValue: ValidationError }>(
   'cocktails/fetchCocktails',
-  async () =>{
-    const cocktailsRes = await axiosApi<Cocktail[]>('/cocktails');
+  async (_, { getState }) =>{
+    const token = getState().users.user?.token;
+
+    if (! token) {
+      throw new Error('User not found');
+    }
+
+    const cocktailsRes = await axiosApi<Cocktail[]>('/cocktails', {
+      headers: { Authorization: token},
+    });
     return cocktailsRes.data || [];
   }
 )
@@ -19,6 +27,25 @@ export const fetchCocktailById = createAsyncThunk<CocktailDetails, string>(
     return response.data;
   }
 )
+
+export const fetchMyCocktail = createAsyncThunk<Cocktail[], string, { state: RootState; rejectValue: ValidationError }>(
+  'cocktails/fetchMyCocktail',
+  async (userId, { getState }) => {
+    const token = getState().users.user?.token;
+
+    if (!token) {
+      throw new Error('User not found');
+    }
+
+    const cocktailsRes = await axiosApi.get<Cocktail[]>(`/cocktails?user=${userId}`, {
+      headers: { Authorization: token },
+    });
+
+    return cocktailsRes.data || [];
+  }
+);
+
+
 
 export const addCocktail = createAsyncThunk<Cocktail, CocktailMutation, { state: RootState; rejectValue: ValidationError }>(
   'cocktails/addCocktail',

@@ -5,13 +5,16 @@ import Typography from '@mui/material/Typography';
 import zaglushka from "/src/assets/zaglushka.jpg";
 import { apiUrl } from '../../globalConstants.ts';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks.ts';
+import { selectUser } from '../../features/users/userSlice.ts';
 
 interface Props {
   cocktails: Cocktail;
   cocktailPublished: (id: string) => void;
 }
 
-const CoctailItem: React.FC<Props> = ({ cocktails }) => {
+const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished }) => {
+  const user = useAppSelector(selectUser);
   let imageZaglushka = zaglushka;
 
   if (cocktails.image) {
@@ -46,7 +49,7 @@ const CoctailItem: React.FC<Props> = ({ cocktails }) => {
             sx={{
               width: '50%',
               ml:2,
-              mb:2,
+              mb:5,
               backgroundColor: "black",
               color: "white",
               '&:hover': {
@@ -58,6 +61,21 @@ const CoctailItem: React.FC<Props> = ({ cocktails }) => {
             View cocktail
           </Button>
         </Link>
+
+        {user?.role === 'admin' && (
+          <Button onClick={(e) => {
+            e.stopPropagation();
+            cocktailPublished(cocktails._id);
+          }}>
+            {cocktails.published ? <>Unpublish</> : <>Publish</>}
+          </Button>
+        )}
+
+        {!cocktails.published && (
+          <Typography variant="body2" color="red" sx={{ position: 'absolute', bottom: 10, left: 10 }}>
+            Your cocktail is under review by a moderator.
+          </Typography>
+        )}
       </Card>
     </div>
   );
