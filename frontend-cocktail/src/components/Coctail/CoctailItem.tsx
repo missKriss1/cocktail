@@ -1,16 +1,16 @@
 import { Cocktail } from '../../types';
 import React from 'react';
-import { Card, CardContent, CardMedia } from '@mui/material';
+import { Card, CardContent, CardMedia, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import zaglushka from "/src/assets/zaglushka.jpg";
 import { apiUrl } from '../../globalConstants.ts';
+import { Link } from 'react-router-dom';
 
-interface Props{
-  cocktails: Cocktail
+interface Props {
+  cocktails: Cocktail;
 }
 
-const CoctailItem: React.FC <Props> = ({cocktails}) => {
-
+const CoctailItem: React.FC<Props> = ({ cocktails }) => {
   let imageZaglushka = zaglushka;
 
   if (cocktails.image) {
@@ -19,8 +19,7 @@ const CoctailItem: React.FC <Props> = ({cocktails}) => {
 
   return (
     <div>
-
-      <Card sx={{ maxWidth: 345, boxShadow: 3, position: "relative" }}>
+      <Card sx={{ maxWidth: 345, boxShadow: 3, position: "relative", marginBottom: 2 }}>
         <CardMedia
           component="img"
           sx={{
@@ -39,6 +38,25 @@ const CoctailItem: React.FC <Props> = ({cocktails}) => {
             {cocktails.name}
           </Typography>
         </CardContent>
+
+        <Link to={`/cocktails/${cocktails._id}`} style={{ textDecoration: "none" }}>
+          <Button
+            variant="contained"
+            sx={{
+              width: '50%',
+              ml:2,
+              mb:2,
+              backgroundColor: "black",
+              color: "white",
+              '&:hover': {
+                backgroundColor: "darkgray",
+              },
+              padding: "10px",
+            }}
+          >
+            View cocktail
+          </Button>
+        </Link>
       </Card>
     </div>
   );

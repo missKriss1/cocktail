@@ -53,3 +53,13 @@ export interface Cocktail{
   ingredients: Ingredients[];
   published: boolean;
 }
+
+export interface CocktailDetails {
+  _id: string;
+  name: string;
+  user: User;
+  image: File | null;
+  recipe: string;
+  ingredients: Ingredients[];
+  published: boolean;
+}
