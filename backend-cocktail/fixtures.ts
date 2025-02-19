@@ -53,7 +53,7 @@ const run = async () => {
             user: user1._id,
             name: 'Mojito',
             recipe: 'Mix rum, mint, lime, sugar, and soda water.',
-            published: true,
+            published: false,
             image: "fixtures/cocktails/mojito.jpg",
             ingredients: [
                 { name: 'Rum', amount: '50ml' },
@@ -80,7 +80,7 @@ const run = async () => {
             user: user1._id,
             name: 'Piña Colada',
             recipe: 'Blend rum, coconut cream, and pineapple juice.',
-            published: true,
+            published: false,
             image: "fixtures/cocktails/pina_colada.jpg",
             ingredients: [
                 { name: 'Rum', amount: '50ml' },
@@ -105,7 +105,7 @@ const run = async () => {
             user: user1._id,
             name: 'Bloody Mary',
             recipe: 'Mix vodka, tomato juice, and spices.',
-            published: true,
+            published: false,
             image: "fixtures/cocktails/bloody_mary.jpg",
             ingredients: [
                 { name: 'Vodka', amount: '50ml' },
@@ -131,7 +131,7 @@ const run = async () => {
             user: user2._id,
             name: 'Negroni',
             recipe: 'Mix gin, Campari, and vermouth.',
-            published: true,
+            published: false,
             image: "fixtures/cocktails/negroni.jpg",
             ingredients: [
                 { name: 'Gin', amount: '30ml' },
@@ -168,7 +168,7 @@ const run = async () => {
             user: user2._id,
             name: 'Gin Tonic',
             recipe: 'Mix gin and tonic water.',
-            published: true,
+            published: false,
             image: "fixtures/cocktails/gin_tonic.jpg",
             ingredients: [
                 { name: 'Gin', amount: '50ml' },
@@ -192,7 +192,7 @@ const run = async () => {
             user: user2._id,
             name: 'Mint Julep',
             recipe: 'Mix bourbon, mint, and sugar.',
-            published: true,
+            published: false,
             image: "fixtures/cocktails/mint_julep.jpg",
             ingredients: [
                 { name: 'Bourbon', amount: '50ml' },

@@ -82,3 +82,15 @@ export const addCocktail = createAsyncThunk<Cocktail, CocktailMutation, { state:
     }
   }
 )
+
+export const deletedCocktail = createAsyncThunk<void,
+  string,
+  { state: RootState }>(
+  'cocktails/deletedCocktail',
+  async (id: string, { getState }) =>{
+    const token = getState().users.user?.token;
+    await axiosApi.delete(`/cocktails/${id}`,{
+      headers: { Authorization: token },
+    })
+  }
+)

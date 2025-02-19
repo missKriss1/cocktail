@@ -32,6 +32,7 @@ const MyCocktails = () => {
 
   return (
     <div>
+      <h2 className='text-center mt-4 mb-4'>My cocktails:</h2>
       <Box sx={{ padding: 2 }}>
         {cocktails.length === 0 ? (
           <Typography variant="h6" color="text.secondary">

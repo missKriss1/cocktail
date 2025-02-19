@@ -1,6 +1,6 @@
 import { Cocktail } from '../../types';
 import React from 'react';
-import { Card, CardContent, CardMedia, Button } from '@mui/material';
+import { Card, CardContent, CardMedia, Button, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import zaglushka from "/src/assets/zaglushka.jpg";
 import { apiUrl } from '../../globalConstants.ts';
@@ -11,9 +11,10 @@ import { selectUser } from '../../features/users/userSlice.ts';
 interface Props {
   cocktails: Cocktail;
   cocktailPublished: (id: string) => void;
+  deleteCocktail: (id: string) => void;
 }
 
-const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished }) => {
+const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCocktail }) => {
   const user = useAppSelector(selectUser);
   let imageZaglushka = zaglushka;
 
@@ -23,7 +24,7 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished }) => {
 
   return (
     <div>
-      <Card sx={{ maxWidth: 345, boxShadow: 3, position: "relative", marginBottom: 2 }}>
+      <Card sx={{ maxWidth: 345, boxShadow: 3, position: "relative", marginBottom: 4 }}>
         <CardMedia
           component="img"
           sx={{
@@ -48,8 +49,8 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished }) => {
             variant="contained"
             sx={{
               width: '50%',
-              ml:2,
-              mb:5,
+              ml: 2,
+              mb: 4,
               backgroundColor: "black",
               color: "white",
               '&:hover': {
@@ -62,19 +63,53 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished }) => {
           </Button>
         </Link>
 
-        {user?.role === 'admin' && (
-          <Button onClick={(e) => {
-            e.stopPropagation();
-            cocktailPublished(cocktails._id);
-          }}>
-            {cocktails.published ? <>Unpublish</> : <>Publish</>}
-          </Button>
-        )}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '0 16px' }}>
+          {user?.role === 'admin' && (
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                cocktailPublished(cocktails._id);
+              }}
+              sx={{
+                backgroundColor: cocktails.published ? 'green' : 'gray',
+                color: 'white',
+                mb: 2,
+                '&:hover': {
+                  backgroundColor: cocktails.published ? 'darkgreen' : 'darkgray',
+                },
+              }}
+            >
+              {cocktails.published ? 'Publish' : 'Unpublish'}
+            </Button>
+          )}
 
-        {!cocktails.published && (
-          <Typography variant="body2" color="red" sx={{ position: 'absolute', bottom: 10, left: 10 }}>
-            Your cocktail is under review by a moderator.
-          </Typography>
+          {user?.role === 'admin' && (
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteCocktail(cocktails._id)
+              }}
+              sx={{
+                backgroundColor: 'red',
+                color: 'white',
+                mb: 2,
+                '&:hover': {
+                  backgroundColor: 'darkred',
+                },
+              }}
+            >
+              Delete
+            </Button>
+          )}
+        </Box>
+        {user?.role === 'user' && (
+          <>
+            {!cocktails.published && (
+              <Typography variant="body2" color="red" sx={{ position: 'absolute', bottom: 5, left: 25 }}>
+                Your cocktail is under review by a moderator.
+              </Typography>
+            )}
+          </>
         )}
       </Card>
     </div>
