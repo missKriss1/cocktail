@@ -26,6 +26,7 @@ const App = () => {
             <Route path="/cocktails/:cocktailId" element={<OneCocktail />} />
             <Route path="/add_new_cocktail" element={<CocktailForm/>} />
             <Route path="/cocktails" element={<MyCocktails/>} />
+            <Route path="*" element={<h1>Not found</h1>} />
           </Routes>
         </Container>
       </main>

@@ -1,6 +1,12 @@
 import { Cocktail, CocktailDetails, ValidationError } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
-import { addCocktail, fetchCocktailById, fetchCocktails, fetchMyCocktail } from './cocktailsThunk.ts';
+import {
+  addCocktail,
+  fetchCocktailById,
+  fetchCocktails,
+  fetchMyCocktail,
+  toggleCocktailPublish
+} from './cocktailsThunk.ts';
 import { RootState } from '../../app/store.ts';
 
 interface CocktailsSlice {
@@ -73,6 +79,15 @@ export const cocktailsSlice = createSlice({
       .addCase(fetchMyCocktail.rejected, (state) => {
         state.fetchError = true;
       })
+      .addCase(toggleCocktailPublish.pending, (state) => {
+        state.fetchError = false;
+      })
+      .addCase(toggleCocktailPublish.fulfilled, (state) => {
+        state.fetchingLoading = false;
+      })
+      .addCase(toggleCocktailPublish.rejected, (state) => {
+        state.fetchError = true;
+      });
 }
 })
 

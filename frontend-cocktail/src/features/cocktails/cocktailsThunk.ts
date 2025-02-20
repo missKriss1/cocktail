@@ -94,3 +94,15 @@ export const deletedCocktail = createAsyncThunk<void,
     })
   }
 )
+
+export const toggleCocktailPublish = createAsyncThunk <void,
+  string,
+  { state: RootState }>(
+  "cocktails/toggleArtists",
+  async (cocktailId: string , { getState }) => {
+    const token = getState().users.user?.token;
+    await axiosApi.patch(`/cocktails/${cocktailId}/togglePublished`,{}, {
+      headers: { Authorization: token },
+    });
+  },
+);

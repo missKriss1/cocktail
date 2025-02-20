@@ -67,7 +67,7 @@ cocktailsRouter.get("/", auth, async (req, res, next) => {
             cocktail = await Cocktail.find().populate("user");
         }
 
-        res.send(cocktail)
+        res.send(cocktail.reverse())
     }catch (e){
         next(e);
     }

@@ -46,7 +46,7 @@ export interface Ingredients {
 
 export interface Cocktail{
   _id: string;
-  user: string;
+  user: User;
   name: string;
   image: string;
   recipe: string;

@@ -63,53 +63,81 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCock
           </Button>
         </Link>
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '0 16px' }}>
-          {user?.role === 'admin' && (
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                cocktailPublished(cocktails._id);
-              }}
+        {!cocktails.published && (user?.role === 'admin') && (
+          <Box
+            sx={{
+              position: "absolute",
+              top: 10,
+              left: "80%",
+              transform: "translateX(-50%)",
+              backgroundColor: "rgba(255, 0, 0, 0.8)",
+              padding: "6px 12px",
+              borderRadius: "8px",
+              zIndex: 1,
+            }}
+          >
+            <Typography
+              variant="body2"
               sx={{
-                backgroundColor: cocktails.published ? 'green' : 'gray',
-                color: 'white',
-                mb: 2,
-                '&:hover': {
-                  backgroundColor: cocktails.published ? 'darkgreen' : 'darkgray',
-                },
+                color: "#fff",
+                fontWeight: "bold",
+                textTransform: "uppercase",
               }}
             >
-              {cocktails.published ? 'Publish' : 'Unpublish'}
-            </Button>
-          )}
+              Unpublished
+            </Typography>
 
-          {user?.role === 'admin' && (
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                deleteCocktail(cocktails._id)
-              }}
-              sx={{
-                backgroundColor: 'red',
-                color: 'white',
-                mb: 2,
-                '&:hover': {
-                  backgroundColor: 'darkred',
-                },
-              }}
-            >
-              Delete
-            </Button>
-          )}
-        </Box>
-        {user?.role === 'user' && (
-          <>
-            {!cocktails.published && (
-              <Typography variant="body2" color="red" sx={{ position: 'absolute', bottom: 5, left: 25 }}>
-                Your cocktail is under review by a moderator.
-              </Typography>
+            {user.role === "admin" && !cocktails.published &&(
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  cocktailPublished(cocktails._id);
+                }}
+                sx={{
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                  borderRadius: "8px",
+                  marginLeft: "16px",
+                }}
+              >
+                Publish
+              </Button>
             )}
-          </>
+          </Box>
+        )}
+
+        {user?.role === 'admin' && (
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteCocktail(cocktails._id);
+            }}
+            sx={{
+              position: "absolute",
+              bottom: 10,
+              right: 10,
+              backgroundColor: 'red',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'darkred',
+              },
+            }}
+          >
+            Delete
+          </Button>
+        )}
+
+        {user?.role === 'user' && !cocktails.published && (
+          <Typography
+            variant="body2"
+            color="red"
+            sx={{ position: 'absolute', bottom: 5, left: 25 }}
+          >
+            Your cocktail is under review by a moderator.
+          </Typography>
         )}
       </Card>
     </div>
