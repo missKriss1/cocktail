@@ -17,7 +17,7 @@ const initialState = {
       name: '',
       amount: ''
     }
-    ]
+  ]
 };
 
 const CocktailForm = () => {
@@ -79,6 +79,13 @@ const CocktailForm = () => {
     setForm((prevState: CocktailMutation) => ({
       ...prevState,
       ingredients: [...prevState.ingredients, { name: '', amount: '' }],
+    }));
+  };
+
+  const deleteIngred = (index: number) => {
+    setForm((prevState: CocktailMutation) => ({
+      ...prevState,
+      ingredients: prevState.ingredients.filter((_, i) => i !== index),
     }));
   };
 
@@ -161,6 +168,14 @@ const CocktailForm = () => {
                     },
                   }}
                 />
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={() => deleteIngred(index)}
+                  sx={{ marginLeft: '10px', marginBottom: '10px' }}
+                >
+                  Remove
+                </Button>
               </div>
             ))}
             <Button variant="outlined" onClick={addIngredientField}>
