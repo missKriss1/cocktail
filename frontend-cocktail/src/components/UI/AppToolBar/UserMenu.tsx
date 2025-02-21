@@ -1,7 +1,7 @@
 import { Button, Menu, MenuItem, Avatar } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import { useAppDispatch } from "../../../app/hooks.ts";
 import { logout } from "../../../features/users/userThunk.ts";
 import { unsetUser } from "../../../features/users/userSlice.ts";
@@ -33,12 +33,12 @@ const UserMenu: React.FC<Props> = ({ user }) => {
     setAnchorEl(null);
   };
 
-  return(
+  return (
     <div>
       <Button
         color="inherit"
         onClick={handleClick}
-        startIcon={<Avatar src={avatarImage} alt={user?.displayName}/>}
+        startIcon={<Avatar src={avatarImage} alt={user?.displayName} />}
       >
         Hello, {user?.displayName}
       </Button>
@@ -48,11 +48,11 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         open={Boolean(anchorEl)}
         onClose={hendelClose}
       >
-        <div style={{display: "flex", flexDirection: "column"}}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <MenuItem onClick={hendelClose}>
             <NavLink
               to={"/add_new_cocktail"}
-              style={{textDecoration: "none", color: "inherit"}}
+              style={{ textDecoration: "none", color: "inherit" }}
             >
               Add new cocktail
             </NavLink>
@@ -60,7 +60,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
           <MenuItem onClick={hendelClose}>
             <NavLink
               to={`/cocktails?user=${user._id}`}
-              style={{textDecoration: "none", color: "inherit"}}
+              style={{ textDecoration: "none", color: "inherit" }}
             >
               My cocktails
             </NavLink>
@@ -71,19 +71,19 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         type="button"
         onClick={HandleLogout}
         style={{
-          color: 'white',
-          border: '1px solid white',
-          backgroundColor: 'black',
-          padding: '8px 16px',
-          cursor: 'pointer',
+          color: "white",
+          border: "1px solid white",
+          backgroundColor: "black",
+          padding: "8px 16px",
+          cursor: "pointer",
         }}
-        onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'black'}
-        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'black'}
+        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "black")}
+        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "black")}
       >
         Log Out
       </button>
     </div>
-  )
+  );
 };
 
 export default UserMenu;

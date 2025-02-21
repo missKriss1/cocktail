@@ -1,11 +1,11 @@
-import Coctails from '../Coctails/Coctails.tsx';
+import Coctails from "../Coctails/Coctails.tsx";
 
 const Home = () => {
   return (
     <>
-      <Coctails/>
+      <Coctails />
     </>
-  )
+  );
 };
 
 export default Home;

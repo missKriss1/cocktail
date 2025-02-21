@@ -17,16 +17,15 @@ const AppToolBar = () => {
   const user = useAppSelector(selectUser);
   return (
     <div>
-      <AppBar position="sticky" sx={{ mb: 2, backgroundColor: 'black' }}>
-          <Container sx={{ mt: 2, mb: 2 }}>
-            <Toolbar>
-              <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
-                <Link to="/">Cocktails</Link>
-              </Typography>
-              {user ? <UserMenu user={user} /> : <AnonimysMenu />}
-            </Toolbar>
-          </Container>
-
+      <AppBar position="sticky" sx={{ mb: 2, backgroundColor: "black" }}>
+        <Container sx={{ mt: 2, mb: 2 }}>
+          <Toolbar>
+            <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
+              <Link to="/">Cocktails</Link>
+            </Typography>
+            {user ? <UserMenu user={user} /> : <AnonimysMenu />}
+          </Toolbar>
+        </Container>
       </AppBar>
     </div>
   );

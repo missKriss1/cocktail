@@ -1,12 +1,12 @@
-import { Cocktail } from '../../types';
-import React from 'react';
-import { Card, CardContent, CardMedia, Button, Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
+import { Cocktail } from "../../types";
+import React from "react";
+import { Card, CardContent, CardMedia, Button, Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import zaglushka from "/src/assets/zaglushka.jpg";
-import { apiUrl } from '../../globalConstants.ts';
-import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../app/hooks.ts';
-import { selectUser } from '../../features/users/userSlice.ts';
+import { apiUrl } from "../../globalConstants.ts";
+import { Link } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks.ts";
+import { selectUser } from "../../features/users/userSlice.ts";
 
 interface Props {
   cocktails: Cocktail;
@@ -14,7 +14,11 @@ interface Props {
   deleteCocktail: (id: string) => void;
 }
 
-const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCocktail }) => {
+const CoctailItem: React.FC<Props> = ({
+  cocktails,
+  cocktailPublished,
+  deleteCocktail,
+}) => {
   const user = useAppSelector(selectUser);
   let imageZaglushka = zaglushka;
 
@@ -24,7 +28,14 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCock
 
   return (
     <div>
-      <Card sx={{ maxWidth: 345, boxShadow: 3, position: "relative", marginBottom: 4 }}>
+      <Card
+        sx={{
+          maxWidth: 345,
+          boxShadow: 3,
+          position: "relative",
+          marginBottom: 4,
+        }}
+      >
         <CardMedia
           component="img"
           sx={{
@@ -44,16 +55,19 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCock
           </Typography>
         </CardContent>
 
-        <Link to={`/cocktails/${cocktails._id}`} style={{ textDecoration: "none" }}>
+        <Link
+          to={`/cocktails/${cocktails._id}`}
+          style={{ textDecoration: "none" }}
+        >
           <Button
             variant="contained"
             sx={{
-              width: '50%',
+              width: "50%",
               ml: 2,
               mb: 4,
               backgroundColor: "black",
               color: "white",
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: "darkgray",
               },
               padding: "10px",
@@ -63,7 +77,7 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCock
           </Button>
         </Link>
 
-        {!cocktails.published && (user?.role === 'admin') && (
+        {!cocktails.published && user?.role === "admin" && (
           <Box
             sx={{
               position: "absolute",
@@ -87,7 +101,7 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCock
               Unpublished
             </Typography>
 
-            {user.role === "admin" && !cocktails.published &&(
+            {user.role === "admin" && !cocktails.published && (
               <Button
                 variant="contained"
                 color="primary"
@@ -109,7 +123,7 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCock
           </Box>
         )}
 
-        {user?.role === 'admin' && (
+        {user?.role === "admin" && (
           <Button
             onClick={(e) => {
               e.stopPropagation();
@@ -119,10 +133,10 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCock
               position: "absolute",
               bottom: 10,
               right: 10,
-              backgroundColor: 'red',
-              color: 'white',
-              '&:hover': {
-                backgroundColor: 'darkred',
+              backgroundColor: "red",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "darkred",
               },
             }}
           >
@@ -130,11 +144,11 @@ const CoctailItem: React.FC<Props> = ({ cocktails, cocktailPublished, deleteCock
           </Button>
         )}
 
-        {user?.role === 'user' && !cocktails.published && (
+        {user?.role === "user" && !cocktails.published && (
           <Typography
             variant="body2"
             color="red"
-            sx={{ position: 'absolute', bottom: 5, left: 25 }}
+            sx={{ position: "absolute", bottom: 5, left: 25 }}
           >
             Your cocktail is under review by a moderator.
           </Typography>

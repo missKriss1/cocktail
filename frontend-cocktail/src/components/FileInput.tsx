@@ -62,11 +62,11 @@ const FileInput: React.FC<Props> = ({
         <button
           type="button"
           style={{
-            color: 'white',
-            border: '1px solid white',
-            backgroundColor: 'black',
-            padding: '8px 16px',
-            cursor: 'pointer',
+            color: "white",
+            border: "1px solid white",
+            backgroundColor: "black",
+            padding: "8px 16px",
+            cursor: "pointer",
           }}
           onClick={activateInput}
         >

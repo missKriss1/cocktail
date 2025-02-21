@@ -48,7 +48,7 @@ const LoginUser = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            backgroundColor: "black",  // Black background for the form
+            backgroundColor: "black", // Black background for the form
             padding: 4,
             borderRadius: 2,
             boxShadow: 3,
@@ -62,7 +62,15 @@ const LoginUser = () => {
           </Typography>
 
           {loginError && (
-            <Alert severity="error" sx={{ mt: 3, width: "100%", color: "black", backgroundColor: "white" }}>
+            <Alert
+              severity="error"
+              sx={{
+                mt: 3,
+                width: "100%",
+                color: "black",
+                backgroundColor: "white",
+              }}
+            >
               {loginError.error}
             </Alert>
           )}
@@ -84,8 +92,8 @@ const LoginUser = () => {
             onSubmit={submitHandler}
             sx={{ mt: 3 }}
           >
-            <Grid  direction={"column"} spacing={2}>
-              <Grid >
+            <Grid direction={"column"} spacing={2}>
+              <Grid>
                 <TextField
                   fullWidth
                   id="email"
@@ -94,7 +102,7 @@ const LoginUser = () => {
                   value={form.email}
                   onChange={inpytChangeHandler}
                   sx={{
-                    mt:2,
+                    mt: 2,
                     input: {
                       color: "white",
                     },
@@ -124,7 +132,7 @@ const LoginUser = () => {
                   value={form.password}
                   onChange={inpytChangeHandler}
                   sx={{
-                    mt:2,
+                    mt: 2,
                     input: {
                       color: "white",
                     },

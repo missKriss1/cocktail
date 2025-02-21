@@ -1,23 +1,25 @@
-import { CocktailMutation } from '../../types';
-import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
-import { selectUser } from '../../features/users/userSlice.ts';
-import { useNavigate } from 'react-router-dom';
-import { addCocktail } from '../../features/cocktails/cocktailsThunk.ts';
-import TextField from '@mui/material/TextField';
-import { Box, Button } from '@mui/material';
-import FileInput from '../../components/FileInput.tsx';
+import { CocktailMutation } from "../../types";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
+import { selectUser } from "../../features/users/userSlice.ts";
+import { useNavigate } from "react-router-dom";
+import { addCocktail } from "../../features/cocktails/cocktailsThunk.ts";
+import TextField from "@mui/material/TextField";
+import { Box, Button } from "@mui/material";
+import FileInput from "../../components/FileInput.tsx";
+import ButtonLoading from "../../components/UI/ButtonLoading/ButtonLoading.tsx";
+import { loadCreatCocktail } from "../../features/cocktails/cocktailsSlice.ts";
 
 const initialState = {
-  name: '',
+  name: "",
   image: null,
-  recipe: '',
+  recipe: "",
   ingredients: [
     {
-      name: '',
-      amount: ''
-    }
-  ]
+      name: "",
+      amount: "",
+    },
+  ],
 };
 
 const CocktailForm = () => {
@@ -25,6 +27,7 @@ const CocktailForm = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
+  const creatLoadCocktail = useAppSelector(loadCreatCocktail);
 
   useEffect(() => {
     if (!user) navigate("/register");
@@ -33,38 +36,43 @@ const CocktailForm = () => {
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-
       await dispatch(addCocktail(form)).unwrap();
       setForm({ ...initialState });
       navigate(`/`);
     } catch (e) {
-      console.error('Error during form submission:', e);
+      console.error("Error during form submission:", e);
     }
   };
 
   const onInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setForm((prevState: CocktailMutation) => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
-  const onIngredientsChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => { // исправлено
+  const onIngredientsChange = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    // исправлено
     const { name, value } = e.target;
     setForm((prevState: CocktailMutation) => {
       const ingredCopy = [...prevState.ingredients];
-      ingredCopy[index] = {...ingredCopy[index], [name]: value};
+      ingredCopy[index] = { ...ingredCopy[index], [name]: value };
 
-      return{
+      return {
         ...prevState,
-        ingredients: ingredCopy
-      }
+        ingredients: ingredCopy,
+      };
     });
   };
 
-  const onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const { name, files } = e.target;
 
     if (files) {
@@ -78,7 +86,7 @@ const CocktailForm = () => {
   const addIngredientField = () => {
     setForm((prevState: CocktailMutation) => ({
       ...prevState,
-      ingredients: [...prevState.ingredients, { name: '', amount: '' }],
+      ingredients: [...prevState.ingredients, { name: "", amount: "" }],
     }));
   };
 
@@ -91,15 +99,15 @@ const CocktailForm = () => {
 
   return (
     <div>
-      <h2 className='text-center mt-4'>Add new cocktail</h2>
+      <h2 className="text-center mt-4">Add new cocktail</h2>
       <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
         <Box
           component="form"
           sx={{
-            backgroundColor: 'white',
-            padding: '20px',
-            borderRadius: '8px',
-            boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "8px",
+            boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
           }}
           onSubmit={onFormSubmit}
         >
@@ -114,7 +122,7 @@ const CocktailForm = () => {
             onChange={onInputChange}
             sx={{
               input: {
-                backgroundColor: '#f0f0f0',
+                backgroundColor: "#f0f0f0",
               },
             }}
           />
@@ -131,7 +139,7 @@ const CocktailForm = () => {
             rows={4}
             sx={{
               input: {
-                backgroundColor: '#f0f0f0',
+                backgroundColor: "#f0f0f0",
               },
             }}
           />
@@ -150,7 +158,7 @@ const CocktailForm = () => {
                   onChange={(e) => onIngredientsChange(index, e)}
                   sx={{
                     input: {
-                      backgroundColor: '#f0f0f0',
+                      backgroundColor: "#f0f0f0",
                     },
                   }}
                 />
@@ -164,7 +172,7 @@ const CocktailForm = () => {
                   onChange={(e) => onIngredientsChange(index, e)}
                   sx={{
                     input: {
-                      backgroundColor: '#f0f0f0',
+                      backgroundColor: "#f0f0f0",
                     },
                   }}
                 />
@@ -172,7 +180,7 @@ const CocktailForm = () => {
                   variant="outlined"
                   color="error"
                   onClick={() => deleteIngred(index)}
-                  sx={{ marginLeft: '10px', marginBottom: '10px' }}
+                  sx={{ marginLeft: "10px", marginBottom: "10px" }}
                 >
                   Remove
                 </Button>
@@ -194,21 +202,11 @@ const CocktailForm = () => {
             />
           </div>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{
-              backgroundColor: 'black',
-              color: 'white',
-              marginTop: '20px',
-              '&:hover': {
-                backgroundColor: 'darkgray',
-              },
-            }}
-          >
-            Submit
-          </Button>
+          <ButtonLoading
+            isLoading={creatLoadCocktail}
+            isDisabled={creatLoadCocktail}
+            text="Add new cocktail"
+          />
         </Box>
       </div>
     </div>

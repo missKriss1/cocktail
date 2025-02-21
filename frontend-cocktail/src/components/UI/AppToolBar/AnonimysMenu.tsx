@@ -9,13 +9,13 @@ const AnonimysMenu = () => {
         to="/register"
         sx={{
           mr: 2,
-          color: 'white',
-          border: '1px solid white',
-          backgroundColor: 'black',
-          '&:hover': {
-            backgroundColor: 'black',
-            borderColor: 'white',
-          }
+          color: "white",
+          border: "1px solid white",
+          backgroundColor: "black",
+          "&:hover": {
+            backgroundColor: "black",
+            borderColor: "white",
+          },
         }}
       >
         Sign up
@@ -24,13 +24,13 @@ const AnonimysMenu = () => {
         component={NavLink}
         to="/login"
         sx={{
-          color: 'white',
-          border: '1px solid white',
-          backgroundColor: 'black',
-          '&:hover': {
-            backgroundColor: 'black',
-            borderColor: 'white',
-          }
+          color: "white",
+          border: "1px solid white",
+          backgroundColor: "black",
+          "&:hover": {
+            backgroundColor: "black",
+            borderColor: "white",
+          },
         }}
       >
         Sign in

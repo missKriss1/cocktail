@@ -44,7 +44,7 @@ export interface Ingredients {
   amount: string;
 }
 
-export interface Cocktail{
+export interface Cocktail {
   _id: string;
   user: User;
   name: string;
@@ -64,7 +64,7 @@ export interface CocktailDetails {
   published: boolean;
 }
 
-export interface CocktailMutation{
+export interface CocktailMutation {
   name: string;
   image: File | null;
   recipe: string;

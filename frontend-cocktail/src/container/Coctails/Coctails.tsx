@@ -1,17 +1,25 @@
-import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
-import { cocktailsSelect } from '../../features/cocktails/cocktailsSlice.ts';
-import { useEffect } from 'react';
-import { deletedCocktail, fetchCocktails, toggleCocktailPublish } from '../../features/cocktails/cocktailsThunk.ts';
-import CoctailItem from '../../components/Coctail/CoctailItem.tsx';
-import { Box, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
+import {
+  cocktailsSelect,
+  selectLoadingCocktails,
+} from "../../features/cocktails/cocktailsSlice.ts";
+import { useEffect } from "react";
+import {
+  deletedCocktail,
+  fetchCocktails,
+  toggleCocktailPublish,
+} from "../../features/cocktails/cocktailsThunk.ts";
+import CoctailItem from "../../components/Coctail/CoctailItem.tsx";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { selectUser } from '../../features/users/userSlice.ts';
+import { selectUser } from "../../features/users/userSlice.ts";
+import Spinner from "../../components/UI/Spinner/Spinner.tsx";
 
 const Coctails = () => {
   const dispatch = useAppDispatch();
   const cocktails = useAppSelector(cocktailsSelect);
-  const user = useAppSelector(selectUser)
-
+  const loading = useAppSelector(selectLoadingCocktails);
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     dispatch(fetchCocktails());
@@ -41,31 +49,37 @@ const Coctails = () => {
     }
 
     if (!user) return false;
-    return user.role === 'admin' || user._id === cocktail.user._id;
+    return user.role === "admin" || user._id === cocktail.user._id;
   });
 
   return (
     <>
-      <h2 className='text-center mt-4 mb-4'>All cocktails:</h2>
-      <Box sx={{padding: 2}}>
-        {cocktails.length === 0 ? (
-          <Typography variant="h6" color="text.secondary">
-            No cocktails found.
-          </Typography>
-        ) : (
-          <Grid container spacing={2}>
-            {filteredCocktails.map((cocktail) => (
-              <Grid size={{xs: 6, md: 4}} key={cocktail._id}>
-                <CoctailItem
-                  cocktails={cocktail}
-                  cocktailPublished={publishCocktailClick}
-                  deleteCocktail={deleteCocktailById}
-                />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <h2 className="text-center mt-4 mb-4">All cocktails:</h2>
+          <Box sx={{ padding: 2 }}>
+            {cocktails.length === 0 ? (
+              <Typography variant="h6" color="text.secondary">
+                No cocktails found.
+              </Typography>
+            ) : (
+              <Grid container spacing={2}>
+                {filteredCocktails.map((cocktail) => (
+                  <Grid size={{ xs: 6, md: 4 }} key={cocktail._id}>
+                    <CoctailItem
+                      cocktails={cocktail}
+                      cocktailPublished={publishCocktailClick}
+                      deleteCocktail={deleteCocktailById}
+                    />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-        )}
-      </Box>
+            )}
+          </Box>
+        </>
+      )}
     </>
   );
 };

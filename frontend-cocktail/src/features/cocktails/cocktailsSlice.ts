@@ -1,42 +1,46 @@
-import { Cocktail, CocktailDetails, ValidationError } from '../../types';
-import { createSlice } from '@reduxjs/toolkit';
+import { Cocktail, CocktailDetails, ValidationError } from "../../types";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   addCocktail,
   fetchCocktailById,
   fetchCocktails,
   fetchMyCocktail,
-  toggleCocktailPublish
-} from './cocktailsThunk.ts';
-import { RootState } from '../../app/store.ts';
+  toggleCocktailPublish,
+} from "./cocktailsThunk.ts";
+import { RootState } from "../../app/store.ts";
 
 interface CocktailsSlice {
   cocktails: Cocktail[];
-  cocktail: CocktailDetails | null,
-  fetchingLoading : boolean;
-  fetchError : boolean;
-  isCreating : boolean;
+  cocktail: CocktailDetails | null;
+  fetchingLoading: boolean;
+  fetchError: boolean;
+  isCreating: boolean;
   creatingError: ValidationError | null;
-  unPublishedCocktails: Cocktail[]
+  unPublishedCocktails: Cocktail[];
 }
 
 const initialState: CocktailsSlice = {
   cocktails: [],
-  cocktail: null ,
+  cocktail: null,
   fetchingLoading: false,
   fetchError: false,
-  isCreating : false,
+  isCreating: false,
   creatingError: null,
   unPublishedCocktails: [],
-}
+};
 
 export const cocktailsSelect = (state: RootState) => state.cocktails.cocktails;
 export const cocktailDetSelect = (state: RootState) => state.cocktails.cocktail;
+export const loadCreatCocktail = (state: RootState) =>
+  state.cocktails.isCreating;
+export const selectLoadingCocktails = (state: RootState) =>
+  state.cocktails.fetchingLoading;
 
 export const cocktailsSlice = createSlice({
-  name: 'cocktails',
+  name: "cocktails",
   initialState,
   reducers: {},
-  extraReducers: (builder) =>{
+  extraReducers: (builder) => {
     builder
       .addCase(fetchCocktails.pending, (state) => {
         state.fetchingLoading = true;
@@ -53,7 +57,7 @@ export const cocktailsSlice = createSlice({
       })
       .addCase(fetchCocktailById.fulfilled, (state, { payload: cocktail }) => {
         state.fetchingLoading = false;
-        state.cocktail = cocktail ;
+        state.cocktail = cocktail;
       })
       .addCase(fetchCocktailById.rejected, (state) => {
         state.fetchError = true;
@@ -88,7 +92,7 @@ export const cocktailsSlice = createSlice({
       .addCase(toggleCocktailPublish.rejected, (state) => {
         state.fetchError = true;
       });
-}
-})
+  },
+});
 
 export const cocktailsReducer = cocktailsSlice.reducer;
