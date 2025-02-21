@@ -82,6 +82,14 @@ const RegisterUser = () => {
           >
             <Grid direction={"column"} spacing={2}>
               <Grid>
+                {getFielderror("email") ? (
+                  <div
+                    className="alert alert-danger w-100 text-center p-1 mx-auto"
+                    role="alert"
+                  >
+                    {getFielderror("email")}
+                  </div>
+                ) : null}
                 <TextField
                   fullWidth
                   id="email"
@@ -89,7 +97,7 @@ const RegisterUser = () => {
                   name="email"
                   value={form.email}
                   onChange={inpytChangeHandler}
-                  helperText={getFielderror("username")}
+                  helperText={getFielderror("Email")}
                   sx={{
                     input: { color: "white" },
                     label: { color: "white" },
@@ -106,6 +114,14 @@ const RegisterUser = () => {
                 />
               </Grid>
               <Grid>
+                {getFielderror("password") ? (
+                  <div
+                    className="alert alert-danger w-100 text-center p-1 mx-auto"
+                    role="alert"
+                  >
+                    {getFielderror("password")}
+                  </div>
+                ) : null}
                 <TextField
                   fullWidth
                   name="password"
@@ -131,6 +147,14 @@ const RegisterUser = () => {
                 />
               </Grid>
               <Grid>
+                {getFielderror("displayName") ? (
+                  <div
+                    className="alert alert-danger w-100 text-center p-1 mx-auto"
+                    role="alert"
+                  >
+                    {getFielderror("displayName")}
+                  </div>
+                ) : null}
                 <TextField
                   fullWidth
                   name="displayName"

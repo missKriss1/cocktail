@@ -48,7 +48,7 @@ const LoginUser = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            backgroundColor: "black", // Black background for the form
+            backgroundColor: "black",
             padding: 4,
             borderRadius: 2,
             boxShadow: 3,

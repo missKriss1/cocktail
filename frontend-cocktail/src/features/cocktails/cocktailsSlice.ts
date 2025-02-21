@@ -35,6 +35,7 @@ export const loadCreatCocktail = (state: RootState) =>
   state.cocktails.isCreating;
 export const selectLoadingCocktails = (state: RootState) =>
   state.cocktails.fetchingLoading;
+export const creatError = (state: RootState) => state.cocktails.creatingError;
 
 export const cocktailsSlice = createSlice({
   name: "cocktails",

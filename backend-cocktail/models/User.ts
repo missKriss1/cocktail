@@ -23,18 +23,38 @@ const userSchema = new Schema<
         type: String,
         required: true,
         unique: true,
-        validate: {
+        validate:[ {
             validator : async function (this: HydratedDocument<UsersFiled>,value: string): Promise<boolean> {
-                if(!this.isModified('username')) return true;
-                const user:UsersFiled | null = await User.findOne({username: value});
+                if(!this.isModified('Email')) return true;
+                const user:UsersFiled | null = await User.findOne({email: value});
                 return !user;
             },
-            message: 'This username is already taken'
-        }
+            message: 'This email is already taken'
+        },
+            {
+                validator: function (value: string): boolean {
+                    return value.trim().length > 0;
+                },
+                message: "Fill in the email",
+            },
+        ]
     },
     password: {
         type: String,
-        required: true,
+        validate: [
+            {
+                validator: async function (value: string): Promise<boolean> {
+                    return value === value.trim();
+                },
+                message: "The password must not contain spaces."
+            },
+            {
+                validator: async function (value: string): Promise<boolean> {
+                    return value.trim().length > 0;
+                },
+                message: "Fill in the password.",
+            },
+        ],
     },
     role: {
         type: String,

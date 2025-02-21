@@ -10,7 +10,12 @@ const CocktailSchema = new Schema({
     },
     name:{
         type: String,
-        required: true,
+        validate: {
+            validator: async function (value: string): Promise<boolean> {
+                return value.trim().length > 0;
+            },
+            message: "Fill in the name cocktail",
+        },
     },
     image:{
         type: String,
@@ -18,7 +23,12 @@ const CocktailSchema = new Schema({
     },
     recipe:{
         type: String,
-        required: true,
+        validate: {
+            validator: async function (value: string): Promise<boolean> {
+                return value.trim().length > 0;
+            },
+            message: "Fill in the recipe",
+        },
     },
     published:{
         type: Boolean,
@@ -28,11 +38,21 @@ const CocktailSchema = new Schema({
     ingredients:[{
         name:{
             type: String,
-            required: true,
+            validate: {
+                validator: async function (value: string): Promise<boolean> {
+                    return value.trim().length > 0;
+                },
+                message: "Fill in the name ingredient",
+            },
         },
         amount:{
             type: String,
-            required: true,
+            validate: {
+                validator: async function (value: string): Promise<boolean> {
+                    return value.trim().length > 0;
+                },
+                message: "Fill in the amount ingredient",
+            },
         }
     }]
 })

@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import { Box, Button } from "@mui/material";
 import FileInput from "../../components/FileInput.tsx";
 import ButtonLoading from "../../components/UI/ButtonLoading/ButtonLoading.tsx";
-import { loadCreatCocktail } from "../../features/cocktails/cocktailsSlice.ts";
+import { creatError, loadCreatCocktail } from '../../features/cocktails/cocktailsSlice.ts';
 
 const initialState = {
   name: "",
@@ -28,6 +28,7 @@ const CocktailForm = () => {
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
   const creatLoadCocktail = useAppSelector(loadCreatCocktail);
+  const errorForm = useAppSelector(creatError)
 
   useEffect(() => {
     if (!user) navigate("/register");
@@ -57,7 +58,6 @@ const CocktailForm = () => {
     index: number,
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    // исправлено
     const { name, value } = e.target;
     setForm((prevState: CocktailMutation) => {
       const ingredCopy = [...prevState.ingredients];
@@ -97,6 +97,14 @@ const CocktailForm = () => {
     }));
   };
 
+  const getFieldError = (fieldName: string) => {
+    try {
+      return errorForm?.errors[fieldName].message;
+    } catch {
+      return undefined;
+    }
+  };
+
   return (
     <div>
       <h2 className="text-center mt-4">Add new cocktail</h2>
@@ -125,6 +133,8 @@ const CocktailForm = () => {
                 backgroundColor: "#f0f0f0",
               },
             }}
+            error={!!getFieldError("name")}
+            helperText={getFieldError("name")}
           />
           <h5 className="fs-5">Recipe:</h5>
           <TextField
@@ -142,6 +152,8 @@ const CocktailForm = () => {
                 backgroundColor: "#f0f0f0",
               },
             }}
+            error={!!getFieldError("recipe")}
+            helperText={getFieldError("recipe")}
           />
 
           <div>
@@ -161,7 +173,10 @@ const CocktailForm = () => {
                       backgroundColor: "#f0f0f0",
                     },
                   }}
+                  error={!!getFieldError("name")}
+                  helperText={getFieldError("name")}
                 />
+
                 <TextField
                   label={`Ingredient ${index + 1} Amount`}
                   variant="outlined"
@@ -175,6 +190,8 @@ const CocktailForm = () => {
                       backgroundColor: "#f0f0f0",
                     },
                   }}
+                  error={!!getFieldError("amount")}
+                  helperText={getFieldError("amount")}
                 />
                 <Button
                   variant="outlined"
